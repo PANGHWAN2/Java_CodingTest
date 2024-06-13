@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 public class boj_3052 {
     public static void main(String[] args) throws IOException {
