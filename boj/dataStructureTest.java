@@ -31,7 +31,9 @@ public class dataStructureTest {
         testPriorityQueue(bw);
 
         testDeque(bw);
+
         bw.flush();
+
         bw.close();
     }
 
