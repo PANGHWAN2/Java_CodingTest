@@ -8,7 +8,6 @@ import java.io.OutputStreamWriter; // 표준 출력 스트림을 위해 OutputSt
 import java.util.LinkedList; // 큐 구현을 위해 LinkedList 임포트
 import java.util.Queue; // BFS 구현을 위해 Queue 인터페이스 임포트
 import java.util.StringTokenizer; // 입력 파싱을 위해 StringTokenizer 임포트
-import java.awt.Point; // Point 임포트
 
 public class boj_2178 {
     static int n, m; // n은 행의 수, m은 열의 수
@@ -44,15 +43,18 @@ public class boj_2178 {
     }
 
     static void bfs(int x, int y) {
-        Queue<Point> queue = new LinkedList<>(); // BFS를 위한 큐 생성
-        queue.offer(new Point(x, y)); // 시작 위치를 큐에 삽입
+        Queue<int[]> queue = new LinkedList<>(); // BFS를 위한 큐 생성
+        queue.offer(new int[] { x, y }); // 시작 위치를 큐에 삽입
         visited[x][y] = true; // 시작 위치 방문 표시
 
         while (!queue.isEmpty()) { // 큐가 빌 때까지 반복
-            Point currentPoint = queue.poll(); // 큐에서 현재 위치를 꺼냄
+            int[] current = queue.poll(); // 큐에서 현재 위치를 꺼냄
+            int currentX = current[0];
+            int currentY = current[1];
+
             for (int i = 0; i < 4; i++) { // 상, 하, 좌, 우 방향으로 이동
-                int nextX = currentPoint.x + dx[i]; // 다음 x 좌표 계산
-                int nextY = currentPoint.y + dy[i]; // 다음 y 좌표 계산
+                int nextX = currentX + dx[i]; // 다음 x 좌표 계산
+                int nextY = currentY + dy[i]; // 다음 y 좌표 계산
 
                 // 유효한 범위인지 확인
                 if (nextX < 0 || nextX >= n || nextY < 0 || nextY >= m)
@@ -64,10 +66,10 @@ public class boj_2178 {
                 if (visited[nextX][nextY])
                     continue; // 방문했으면 건너뜀
                 // 갈 수 있는 길이면 큐에 삽입하고 방문 표시
-                queue.offer(new Point(nextX, nextY)); // 다음 위치를 큐에 삽입
+                queue.offer(new int[] { nextX, nextY }); // 다음 위치를 큐에 삽입
                 visited[nextX][nextY] = true; // 다음 위치 방문 표시
                 // 최소 칸 수를 구하기 위해 현재 위치 값 + 1
-                arr[nextX][nextY] = arr[currentPoint.x][currentPoint.y] + 1;
+                arr[nextX][nextY] = arr[currentX][currentY] + 1;
             }
         }
     }
