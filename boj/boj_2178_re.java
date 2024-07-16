@@ -2,14 +2,15 @@ package boj;
 
 import java.io.IOException;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.InputStreamReader;
+import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class boj_2178_re {
+
     static int n, m;
     static int[][] arr;
     static boolean[][] visited;
@@ -17,10 +18,10 @@ public class boj_2178_re {
     static int[] dy = { 0, 0, -1, 1 };
 
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamrReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st;
-        st = new StringTokenizer(br.readLine());
+
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
 
@@ -28,11 +29,13 @@ public class boj_2178_re {
         visited = new boolean[n][m];
 
         for (int i = 0; i < n; i++) {
-            String line = br.readLine();
+            st = new StringTokenizer(br.readLine());
+            String line = st.nextToken();
             for (int j = 0; j < m; j++) {
                 arr[i][j] = line.charAt(j) - '0';
             }
         }
+
         bfs(0, 0);
 
         bw.write(String.valueOf(arr[n - 1][m - 1]));
@@ -41,27 +44,27 @@ public class boj_2178_re {
     }
 
     static void bfs(int x, int y) {
-        Queue<int[]> queue = new LinkedList<>();
-        queue.offer(new int[] { x, y });
+        Queue<int[]> q = new LinkedList<>();
+        q.offer(new int[] { x, y });
         visited[x][y] = true;
 
-        while(!queue.isEmpty()){
-            int[] current = queue.poll();
+        while (!q.isEmpty()) {
+            int[] current = q.poll();
             int currentX = current[0];
             int currentY = current[1];
-
-            for(int i = 0; i < 4; i++){
+            for (int i = 0; i < 4; i++) {
                 int nextX = currentX + dx[i];
                 int nextY = currentY + dy[i];
 
-                if(nextX < 0 || nextX >= n || nextY < 0; || nextY >= m)
+                if (nextX < 0 || nextX >= n || nextY < 0 || nextY >= m)
                     continue;
-                if(arr[nextX][nextY] == 0)
+                if (arr[nextX][nextY] == 0)
                     continue;
-                if(visited[nextX][nextY])
+                if (visited[nextX][nextY])
                     continue;
-                queue.offer(new int[] {nextX, nextY});
+                q.offer(new int[] { nextX, nextY });
                 visited[nextX][nextY] = true;
+
                 arr[nextX][nextY] = arr[currentX][currentY] + 1;
             }
         }
